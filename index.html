@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" class="notranslate" translate="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="google" content="notranslate" />
+  <title>Visit Andong | The Spiritual Capital of Korean Culture</title>
+  <meta name="description" content="Ultimate travel guide to Andong, South Korea for foreign tourists. Discover UNESCO World Heritage villages, Dosan & Byeongsan Seowon, Moonlight Bridge, Andong Jjimdak, and essential travel tips." />
+  <link rel="stylesheet" href="css/style.css?v=4.0" />
+</head>
+<body class="notranslate" translate="no">
+
+  <!-- Site Navigation -->
+  <header class="site-header">
+    <div class="container">
+      <div class="nav-wrap">
+        <a href="#" class="brand-link">
+          <div class="brand-icon">安</div>
+          <div class="brand-title-box">
+            <span class="brand-title">Visit Andong</span>
+            <span class="brand-sub">Spiritual Capital</span>
+          </div>
+        </a>
+
+        <nav class="nav-links">
+          <a href="#placesSection" class="nav-item" data-i18n="navAttractions">Attractions</a>
+          <a href="#foodSection" class="nav-item" data-i18n="navFood">Food & Drink</a>
+          <a href="#itinerarySection" class="nav-item" data-i18n="navItinerary">Itineraries</a>
+          <a href="#phrasesSection" class="nav-item" data-i18n="navPhrases">Korean Phrases</a>
+          <a href="#transportSection" class="nav-item" data-i18n="navTransport">Transport</a>
+          <a href="#toolsSection" class="nav-item" data-i18n="navConverter">Converter</a>
+        </nav>
+
+        <div class="nav-actions">
+          <!-- Segmented Language Switcher (EN / 한국어) -->
+          <div class="lang-switch-group" role="group" aria-label="Language selection">
+            <button type="button" class="lang-btn-option active" data-lang="en" onclick="window.setLanguageTo('en')" title="Switch to English">EN</button>
+            <button type="button" class="lang-btn-option" data-lang="ko" onclick="window.setLanguageTo('ko')" title="한국어로 전환">한국어</button>
+          </div>
+
+          <!-- Theme Toggle (Light / Dark) -->
+          <button id="themeToggleBtn" class="btn-icon" aria-label="Toggle Dark Mode" title="Toggle Dark/Light Mode">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+          </button>
+
+          <!-- My Trip / Saved Places Drawer Toggle -->
+          <button id="tripDrawerOpenBtn" class="btn-icon" aria-label="Open My Saved Trip" title="My Saved Trip">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+            <span id="tripBadgeCount" class="badge-count" style="display: none;">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="pill-badge">
+          <span data-i18n="heroTag">✨ UNESCO World Heritage City • Gyeongsangbuk-do</span>
+        </div>
+        <h1 class="hero-title" id="heroTitle" data-i18n="heroTitle">
+          Step into 600 Years of Living History in <span>Andong</span>
+        </h1>
+        <p class="hero-desc" id="heroDesc" data-i18n="heroDesc">
+          Experience authentic Joseon clan villages, majestic Confucian academies, tranquil moonlight bridges, and world-famous braised chicken. Just 2 hours from Seoul on the KTX-Eum high-speed train.
+        </p>
+
+        <!-- Quick Search -->
+        <div class="search-box-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text-dim); margin-right: 0.5rem;">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search attractions, foods, UNESCO sites (e.g. Hahoe, Jjimdak, Bridge)..." />
+          <button id="searchBtn" class="btn-search" data-i18n="searchBtn">Search</button>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-bar">
+          <div class="stat-item">
+            <div class="stat-num">3+</div>
+            <div class="stat-label" data-i18n="statUnesco">UNESCO World Heritages</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">2h 05m</div>
+            <div class="stat-label" data-i18n="statKtx">KTX from Seoul</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">387m</div>
+            <div class="stat-label" data-i18n="statBridge">Korea's Longest Wooden Bridge</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">600+ yrs</div>
+            <div class="stat-label" data-i18n="statClan">Continuous Lineage Clan Village</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Area -->
+  <main class="container">
+    
+    <!-- Emergency & Foreigner Hotline Banner -->
+    <div class="emergency-banner">
+      <div class="banner-text">
+        <span class="banner-badge" data-i18n="bannerBadge">Traveler Support</span>
+        <span data-i18n="bannerText">Need instant translation, route help, or tourist assistance anywhere in Korea?</span>
+      </div>
+      <a href="tel:1330" class="hotline-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span data-i18n="bannerHotline">Call 1330 (24/7 Free English / Chinese / Japanese)</span>
+      </a>
+    </div>
+
+    <!-- Attractions & Highlights Section -->
+    <section id="placesSection" style="padding-top: 1rem;">
+      <div class="section-header">
+        <div>
+          <span class="section-tag" data-i18n="attractionsTag">Must-Visit Destinations</span>
+          <h2 class="section-title" data-i18n="attractionsTitle">Explore Andong's Treasures</h2>
+          <p class="section-desc" data-i18n="attractionsDesc">From living folk architecture to peaceful riverside pine forests, explore the defining places that give Andong its soul.</p>
+        </div>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="category-filter-wrap" id="categoryFilters">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Cards Grid -->
+      <div class="places-grid" id="placesGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Culinary & Gourmet Section -->
+  <section id="foodSection" class="food-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-tag" data-i18n="foodTag">Taste of Andong</span>
+          <h2 class="section-title" data-i18n="foodTitle">Iconic Local Delicacies & Gourmet</h2>
+          <p class="section-desc" data-i18n="foodDesc">Andong’s geography and scholar culture created a distinct culinary heritage you cannot experience anywhere else.</p>
+        </div>
+      </div>
+      <div class="food-grid" id="foodGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Itineraries Section -->
+  <section id="itinerarySection" class="itinerary-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-tag" data-i18n="itinTag">Curated Routes</span>
+          <h2 class="section-title" data-i18n="itinTitle">Recommended Travel Itineraries</h2>
+          <p class="section-desc" data-i18n="itinDesc">Carefully optimized step-by-step schedules for foreigners visiting for a day trip or an overnight stay.</p>
+        </div>
+      </div>
+      <div class="itinerary-grid" id="itineraryGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Survival Korean Phrases Section -->
+  <section id="phrasesSection" class="phrase-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="section-tag" data-i18n="phrasesTag">Audio Flashcards</span>
+          <h2 class="section-title" data-i18n="phrasesTitle">Traveler's Survival Korean</h2>
+          <p class="section-desc" data-i18n="phrasesDesc">Learn crucial phrases. Tap the speaker icon to hear authentic Korean pronunciation directly from your browser!</p>
+        </div>
+      </div>
+      <div class="phrase-grid" id="phraseGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Transport Guide Section -->
+  <section id="transportSection" class="container" style="padding-top: 3.5rem;">
+    <div class="section-header">
+      <div>
+        <span class="section-tag" data-i18n="transportTag">Getting Here & Around</span>
+        <h2 class="section-title" data-i18n="transportTitle">Transportation Guide</h2>
+        <p class="section-desc" data-i18n="transportDesc">How to smoothly reach Andong from Seoul or Busan, plus local bus lines to major attractions.</p>
+      </div>
+    </div>
+    <div class="transport-grid" id="transportGrid">
+      <!-- Rendered by JS -->
+    </div>
+
+    <!-- Practical Tools: Currency Converter -->
+    <div id="toolsSection" class="tool-box">
+      <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.35rem;" data-i18n="calcTitle">Quick Currency Converter</h3>
+      <p style="font-size: 0.88rem; color: var(--text-muted);" data-i18n="calcDesc">Quickly estimate how much Korean Won (KRW) costs in your local currency while dining or shopping.</p>
+      
+      <div class="calc-row">
+        <div class="calc-input-group">
+          <label for="krwInput" data-i18n="calcKrwLabel">Korean Won (KRW)</label>
+          <input type="number" id="krwInput" value="32000" step="1000" min="0" placeholder="e.g. 32000" />
+        </div>
+        <div class="calc-equal">≈</div>
+        <div class="calc-input-group">
+          <label for="currencySelect" data-i18n="calcTargetLabel">Target Currency</label>
+          <div style="display: flex; gap: 0.5rem;">
+            <select id="currencySelect" style="flex: 0 0 110px;">
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="JPY">JPY (¥)</option>
+              <option value="CNY">CNY (¥)</option>
+            </select>
+            <input type="text" id="foreignVal" readonly style="flex: 1; font-weight: 700; color: var(--dancheong-red);" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Place Detail Modal -->
+  <div class="modal-overlay" id="placeModal">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close dialog">&times;</button>
+      
+      <div class="modal-header-media">
+        <img id="modalImg" class="modal-header-img" src="" alt="" />
+        <span id="modalBadge" class="card-badge"></span>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-names">
+          <h2 id="modalTitleEn" class="modal-title-en"></h2>
+          <p id="modalTitleKo" class="modal-title-ko"></p>
+        </div>
+
+        <p id="modalDesc" style="font-size: 0.93rem; color: var(--text-muted); line-height: 1.6;"></p>
+
+        <div class="modal-meta-list">
+          <div class="modal-meta-item">
+            <span class="modal-meta-label" data-i18n="modalAddressLabel">📍 Address:</span>
+            <span style="flex: 1;">
+              <span id="modalAddress"></span>
+              <button id="modalCopyAddressBtn" style="margin-left: 0.5rem; font-size: 0.75rem; color: var(--dancheong-red); font-weight: 700; text-decoration: underline;" data-i18n="modalCopyAddress">Copy Korean Address</button>
+            </span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label" data-i18n="modalHoursLabel">🕒 Hours:</span>
+            <span id="modalHours"></span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label" data-i18n="modalAdmissionLabel">🎟 Admission:</span>
+            <span id="modalAdmission"></span>
+          </div>
+          <div class="modal-meta-item">
+            <span class="modal-meta-label" data-i18n="modalTransportLabel">🚌 Transit Tip:</span>
+            <span id="modalTransport"></span>
+          </div>
+        </div>
+
+        <div class="modal-tips-box">
+          <h4 class="modal-tips-title" data-i18n="modalTipsTitle">💡 Essential Traveler Tips</h4>
+          <ul id="modalTipsList" class="modal-tips-list"></ul>
+        </div>
+
+        <div class="modal-actions">
+          <a id="modalGoogleMapBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span data-i18n="modalOpenMap">Open in Google Maps</span>
+          </a>
+          <button id="modalSaveBtn" class="btn-secondary">
+            ♡ Add to My Trip
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- My Trip / Saved Drawer -->
+  <aside class="trip-drawer" id="tripDrawer">
+    <div class="drawer-header">
+      <h3 class="drawer-title" data-i18n="myTripTitle">My Andong Trip</h3>
+      <button id="tripDrawerCloseBtn" class="btn-icon" aria-label="Close trip planner">&times;</button>
+    </div>
+    <div class="drawer-body" id="tripListContainer">
+      <!-- Rendered by JS -->
+    </div>
+    <div class="drawer-footer">
+      <button id="shareTripBtn" class="btn-primary" style="width: 100%;" data-i18n="myTripCopyBtn">
+        📋 Copy Itinerary Text
+      </button>
+      <button id="clearTripBtn" class="btn-secondary" style="width: 100%;" data-i18n="myTripClearBtn">
+        Clear All
+      </button>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-link" style="margin-bottom: 0.5rem;">
+            <div class="brand-icon">安</div>
+            <span class="brand-title">Visit Andong</span>
+          </div>
+          <p class="footer-desc" data-i18n="footerDesc">
+            An independent traveler web resource dedicated to welcoming global explorers to Gyeongsangbuk-do's cultural crown jewel.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="footerAttractions">Key Attractions</h4>
+          <ul class="footer-links">
+            <li><a href="#placesSection" class="footer-link-item">Hahoe Folk Village (하회마을)</a></li>
+            <li><a href="#placesSection" class="footer-link-item">Byeongsan Seowon (병산서원)</a></li>
+            <li><a href="#placesSection" class="footer-link-item">Dosan Seowon (도산서원)</a></li>
+            <li><a href="#placesSection" class="footer-link-item">Woryeonggyo Bridge (월영교)</a></li>
+            <li><a href="#placesSection" class="footer-link-item">Bongjeongsa Temple (봉정사)</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title" data-i18n="footerEmergency">Tourist Emergency</h4>
+          <ul class="footer-links">
+            <li><a href="tel:1330" class="footer-link-item">1330 Korea Travel Hotline</a></li>
+            <li><a href="tel:112" class="footer-link-item">112 Police Emergency</a></li>
+            <li><a href="tel:119" class="footer-link-item">119 Fire & Medical Rescue</a></li>
+            <li><a href="tel:054-856-3013" class="footer-link-item">Andong Tourist Office</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div data-i18n="footerCopy">&copy; 2026 Visit Andong Travel Guide. Fully client-side web application.</div>
+        <div>Made for international visitors exploring Andong, Korea.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Quick Language Bar for Mobile -->
+  <aside class="mobile-quick-lang" aria-label="Quick Language Switcher">
+    <button type="button" class="quick-lang-pill" onclick="window.toggleLanguage()" title="언어 전환 / Switch Language">
+      <span style="font-size: 1.05rem;">🌐</span>
+      <span class="quick-lang-text">EN / 한국어</span>
+    </button>
+  </aside>
+
+  <!-- Scripts with cache busting -->
+  <script src="js/landmarks-art.js?v=4.0"></script>
+  <script src="js/data.js?v=4.0"></script>
+  <script src="js/app.js?v=4.0"></script>
+</body>
+</html>
