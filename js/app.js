@@ -451,7 +451,7 @@
 
           <div class="phrase-footer">
             <div class="phrase-tip">💡 ${tip}</div>
-            <button class="btn-speak" data-text="${item.phraseKo}" title="${isKo ? '원어민 발음 듣기' : 'Listen to Korean pronunciation'}">
+            <button type="button" class="btn-speak" data-text="${item.phraseKo}" data-roman="${item.roman}" onclick="window.playPhraseAudio(this)" title="${isKo ? '원어민 발음 듣기' : 'Listen to Korean pronunciation'}">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
                 <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
@@ -461,21 +461,63 @@
         </div>
       `;
     }).join('');
-
-    phraseGrid.querySelectorAll('.btn-speak').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const text = btn.dataset.text;
-        playKoreanAudio(text, btn);
-      });
-    });
   }
 
-  // 3-Tier Hybrid Audio Engine for Mobile & Desktop
-  // 1. Google Translate TTS audio streaming (works on mobile in-app webviews like Kakao/Samsung)
-  // 2. Web Speech API fallback
-  // 3. Visual pronunciation glow & toast guide (zero annoying alert popups!)
-  function playKoreanAudio(text, btnElement) {
+  // Pre-load and cache Web Speech API voices for Mobile (iOS Safari / Android Chrome / Samsung Internet)
+  let cachedVoices = [];
+  function loadVoices() {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      try {
+        const voices = window.speechSynthesis.getVoices();
+        if (voices && voices.length > 0) {
+          cachedVoices = voices;
+        }
+      } catch (e) {
+        // ignore
+      }
+    }
+  }
+  loadVoices();
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+  }
+
+  function getBestKoreanVoice() {
+    if (!cachedVoices || cachedVoices.length === 0) {
+      loadVoices();
+    }
+    if (!cachedVoices || cachedVoices.length === 0) return null;
+
+    // 1. Exact ko-KR or ko_KR match
+    let koVoice = cachedVoices.find(v => v.lang && (v.lang.toLowerCase() === 'ko-kr' || v.lang.toLowerCase() === 'ko_kr'));
+    // 2. Any lang starting with 'ko'
+    if (!koVoice) {
+      koVoice = cachedVoices.find(v => v.lang && v.lang.toLowerCase().startsWith('ko'));
+    }
+    // 3. Name contains Korean or 한국어
+    if (!koVoice) {
+      koVoice = cachedVoices.find(v => v.name && (v.name.toLowerCase().includes('korean') || v.name.includes('한국')));
+    }
+    return koVoice || null;
+  }
+
+  // Expose synchronous global handler so mobile user-gesture activation is never lost
+  window.playPhraseAudio = function (btnElement) {
+    if (!btnElement) return;
+    const text = btnElement.getAttribute('data-text') || '';
+    const roman = btnElement.getAttribute('data-roman') || '';
+    playKoreanAudio(text, roman, btnElement);
+  };
+
+  // Synchronous Mobile-First Speech Synthesis Engine
+  // IMPORTANT: Mobile browsers (iOS Safari, Android Chrome) require speechSynthesis.speak()
+  // to be called synchronously inside the user tap event handler.
+  function playKoreanAudio(text, roman, btnElement) {
+    if (!text) return;
+    const isKo = state.lang === 'ko';
+
     if (btnElement) {
       btnElement.classList.add('playing');
       setTimeout(() => btnElement.classList.remove('playing'), 1400);
@@ -491,46 +533,64 @@
       }
     }
 
-    // Strategy 1: HTML5 Audio streaming
-    try {
-      const audioUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&tl=ko&client=tw-ob&q=' + encodeURIComponent(text);
-      const audio = new Audio(audioUrl);
-      const promise = audio.play();
-      if (promise !== undefined) {
-        promise.then(() => {
-          // Playing successfully!
-        }).catch(() => {
-          fallbackSpeechSynthesis(text);
-        });
-        return;
-      }
-    } catch (e) {
-      // Proceed to fallback
-    }
-
-    fallbackSpeechSynthesis(text);
-  }
-
-  function fallbackSpeechSynthesis(text) {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined') {
       try {
-        window.speechSynthesis.cancel();
-        if (window.speechSynthesis.resume) {
-          window.speechSynthesis.resume();
+        const synth = window.speechSynthesis;
+
+        // Wake up paused synth on iOS/Android
+        if (synth.paused && synth.resume) {
+          synth.resume();
         }
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'ko-KR';
-        utterance.rate = 0.85;
-        window.speechSynthesis.speak(utterance);
+
+        const speakNow = () => {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = 'ko-KR';
+          utterance.rate = 0.88;
+          utterance.pitch = 1.0;
+          utterance.volume = 1.0;
+
+          const koVoice = getBestKoreanVoice();
+          if (koVoice) {
+            utterance.voice = koVoice;
+          }
+
+          utterance.onerror = function () {
+            showToast(
+              isKo
+                ? `🔇 기기에서 한국어 음성을 재생할 수 없습니다. [ ${roman || text} ]`
+                : `🔇 Korean voice unavailable on this viewer. Read: [ ${roman || text} ]`
+            );
+          };
+
+          synth.speak(utterance);
+        };
+
+        // Android Chrome bug: calling synth.cancel() immediately before synth.speak()
+        // cancels the new utterance too. Only cancel if currently speaking!
+        if (synth.speaking || synth.pending) {
+          synth.cancel();
+          setTimeout(speakNow, 45);
+        } else {
+          speakNow();
+        }
+
+        showToast(
+          isKo
+            ? `🔊 "${text}" 발음 재생 중 (소리가 안 나면 미디어 음량/무음모드를 확인하세요)`
+            : `🔊 Playing "${text}" [${roman}] (Check media volume / mute switch)`
+        );
         return;
       } catch (e) {
         console.warn('SpeechSynthesis error:', e);
       }
     }
 
-    // Strategy 3: Friendly visual toast guide instead of annoying alert()
-    const isKo = state.lang === 'ko';
-    showToast(isKo ? `🗣️ [ ${text} ] 로마자 발음을 따라 읽어보세요!` : `🗣️ Read aloud: [ ${text} ]`);
+    // Fallback when opened in an in-app browser without Web Speech API support
+    showToast(
+      isKo
+        ? `🗣️ 현재 앱 내장 브라우저에서는 음성이 제한됩니다. 크롬/사파리에서 열거나 [${roman || text}] 발음을 참고하세요.`
+        : `🗣️ Audio not supported in this in-app viewer. Open in Chrome/Safari or read: [${roman || text}]`
+    );
   }
 
   // Render Transport
